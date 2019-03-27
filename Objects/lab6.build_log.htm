@@ -1,0 +1,91 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.24.2.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Rick Tolleson Rochester Institute of Technology Flex license: MDK-ARM Professional: 100 user(s) (mdk_pro) Operation stops: 22 Jul 2019
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional: 100 user(s)  Version: 5.24.1
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 5 (build 528)
+Assembler:       Armasm.exe V5.06 update 5 (build 528)
+Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
+Library Manager: ArmAr.exe V5.06 update 5 (build 528)
+Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
+CPU DLL:         SARMCM3.DLL V5.24.1
+Dialog DLL:      DCM.DLL V1.16.0.0
+Target DLL:      CMSIS_AGDI.dll V1.28.3.0
+Dialog DLL:      TCM.DLL V1.32.0.0
+ 
+<h2>Project:</h2>
+D:\lab6\lab6.uvprojx
+Project File Date:  02/27/2019
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Target 1'
+compiling main_template_lab6.c...
+MK64F12.h(13705): warning:  #1-D: last line of file ends without a newline
+   
+PWM.h(5): warning:  #1295-D: Deprecated declaration InitPWM - give arg types
+  void InitPWM();
+PWM.h(6): warning:  #1295-D: Deprecated declaration PWM_ISR - give arg types
+  void PWM_ISR();
+PWM.h(8): warning:  #1295-D: Deprecated declaration InitServoPWM - give arg types
+  void InitServoPWM();
+main_template_lab6.c(14): warning:  #1295-D: Deprecated declaration initialize - give arg types
+  void initialize();
+main_template_lab6.c(15): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
+  void en_interrupts();
+main_template_lab6.c(16): warning:  #1295-D: Deprecated declaration delay - give arg types
+  void delay();
+main_template_lab6.c(117): warning:  #111-D: statement is unreachable
+  	return 0;
+main_template_lab6.c(97): warning:  #177-D: variable "dc"  was declared but never referenced
+  		uint16_t dc = 0;
+main_template_lab6.c(100): warning:  #177-D: variable "c"  was declared but never referenced
+  		char c = 48;
+main_template_lab6.c(137): warning:  #177-D: variable "dc"  was declared but never referenced
+  		uint16_t dc = 0;
+main_template_lab6.c(140): warning:  #177-D: variable "c"  was declared but never referenced
+  		char c = 48;
+main_template_lab6.c(168): warning:  #111-D: statement is unreachable
+  	return 0;
+main_template_lab6.c: 13 warnings, 0 errors
+linking...
+Program Size: Code=1364 RO-data=1056 RW-data=4 ZI-data=1124  
+".\Objects\lab6.axf" - 0 Error(s), 13 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.4.0.pack
+                ARM.CMSIS.5.4.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.1.2
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.Kinetis_K60_DFP.1.5.0.pack
+                Keil.Kinetis_K60_DFP.1.5.0
+                NXP Kinetis K60 Series Device Support and Examples
+   * Component: Startup Version: 1.0.0
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Target_1
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
+  C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device\Source\ARM\startup_MK64F12.s
+      Source file:   Device\Source\system_MK64F12.c
+
+   * Component: ARM::CMSIS:CORE:5.1.2
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
