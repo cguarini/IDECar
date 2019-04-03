@@ -12,6 +12,8 @@
 
 #include <stdint.h>
 
+// Default System clock value
+// period = 1/20485760  = 4.8814395e-8
 #define SYSTEM_CLOCK (20485760u)
 #define INTEGRATION_TIME (0.0075f)
 #define CAM_CLK 	( 1 << 9)

@@ -18,11 +18,19 @@
 #include "camera.h"
 #include "MK64F12.h"
 #include <string.h>
+#include <stdio.h>
+#include "uart.h"
 
 void initPIT(void);
 void initGPIO(void);
 void initADC0(void);
 void initFTM2(void);
+
+// These variables are for streaming the camera
+//	 data over UART
+int debugcamdata = 1;
+int capcnt = 0;
+char str[100];
 
 // ADC0VAL holds the current ADC value
 uint16_t ADC0VAL;
@@ -104,10 +112,8 @@ void initGPIO(void)
 	PORTB_PCR22 |= PORT_PCR_MUX(1);
 	
 	// Set GPIO pins to output mode
-	GPIOB_PDDR |= RED_LED | CAM_CLK | CAM_SI;
+	GPIOB_PDDR |= CAM_CLK | CAM_SI;
 	
-	// Turn off RED LED
-	GPIOB_PDOR |= RED_LED;
 }
 
 void initADC0(void)
@@ -283,4 +289,38 @@ void FTM2_IRQHandler(void){ //For FTM timer
 	return;
 }
 
+
+int camera_debug_main(void)
+{
+	int i;
+	
+	uart_init();
+	initGPIO(); // For CLK and SI output on GPIO
+	initFTM2(); // To generate CLK, SI, and trigger ADC
+	initADC0();
+	initPIT();	// To trigger camera read based on integration time
+	
+	for(;;) {
+
+		if (debugcamdata) {
+			// Every 2 seconds
+			//if (capcnt >= (2/INTEGRATION_TIME)) {
+			if (lineready) {
+				GPIOB_PCOR |= (1 << 22);
+				// send the array over uart
+				sprintf(str,"%i\n\r",-1); // start value
+				put(str);
+				for (i = 0; i < 127; i++) {
+					sprintf(str,"%i\n", line[i]);
+					put(str);
+				}
+				sprintf(str,"%i\n\r",-2); // end value
+				put(str);
+				capcnt = 0;
+				GPIOB_PSOR |= (1 << 22);
+			}
+		}
+
+	} //for
+} //main
 
