@@ -28,7 +28,7 @@ void initFTM2(void);
 
 // These variables are for streaming the camera
 //	 data over UART
-int debugcamdata = 1;
+int debugcamdata = 0;
 int capcnt = 0;
 char str[100];
 

@@ -11,48 +11,58 @@ int maxValue = 0;
 
 uint16_t scaledLine[128];
 
-float steeringFactor;
 int left;
+
+//Enable printing to console
+int steeringDebug = 0;
+
+uint16_t freq = 10000; /* Frequency = 10 kHz */
+uint16_t dir = 1;
 
 
 //Determines how hard the car has to turn
-void Steer(){
-	/*
-	char str[100];
-	sprintf(str, "%f", steeringFactor);
-	put(str);
-	put("\n");
-	*/
+void Steer(float steeringFactor){
+	
+	//Prints steering factor to console
+	if(steeringDebug){
+		char str[100];
+		sprintf(str, "%f", steeringFactor);
+		put(str);
+		put("\n\r");
+	}
+	
 	//default straight
+	
 	int dutyCycle = 7;
-	/*
+	int left = 30;
+	int right = 30;
 	//LUT for how hard to turn
-	if(steeringFactor < -5){
-		dutyCycle = 6;
+	if(steeringFactor < .35){
+		//hard right turn
+		right = 0;
+		left = 30;
 	}
-	else if(steeringFactor < -1){
-		dutyCycle = 7;
-	}
-	else if(steeringFactor < 1){
-		dutyCycle = 8;
-	}
-	else if(steeringFactor < 5){
+	if(steeringFactor < .65){
+		//right turn
 		dutyCycle = 9;
+		right = 20;
+		left = 30;
 	}
-	else{
-		dutyCycle = 10;
-	}
-	*/
-	if(steeringFactor < .85){
-		dutyCycle = 9;
-	}
-	else if(steeringFactor > 1.3){
+	if(steeringFactor > 1.5){
+		//left turn
 		dutyCycle = 5;
+		right = 30;
+		left = 20;
+		//left = 0;
 	}
-	else{
-		dutyCycle = 7;
+	if(steeringFactor > 1.8){
+		//hard left turn
+		left = 0;
+		right = 30;
 	}
 	SetServoDutyCycle(dutyCycle, 50, 0);
+	SetDutyCycle(left, right, freq, dir);
+
 
 	
 }
@@ -104,9 +114,11 @@ void steeringFunction(uint16_t line[128]){
 		
 	}
 	
+	float steeringFactor;
+	
 	steeringFactor = ((float) left) /((float) right);
 	
-	Steer();
+	Steer(steeringFactor);
 	
 }
 

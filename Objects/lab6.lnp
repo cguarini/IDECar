@@ -2,6 +2,8 @@
 ".\objects\main_template_lab6.o"
 ".\objects\pwm.o"
 ".\objects\uart.o"
+".\objects\camera.o"
+".\objects\steering.o"
 ".\objects\startup_mk64f12.o"
 ".\objects\system_mk64f12.o"
 --strict --scatter ".\Objects\lab6.sct"
