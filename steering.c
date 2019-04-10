@@ -34,28 +34,36 @@ void Steer(float steeringFactor){
 	//default straight
 	
 	int dutyCycle = 7;
-	int left = 30;
-	int right = 30;
+	int left = 35;
+	int right = 35;
 	//LUT for how hard to turn
-	if(steeringFactor < .35){
-		//hard right turn
-		right = 0;
-		left = 30;
-	}
 	if(steeringFactor < .65){
+		//soft right turn
+		dutyCycle = 8;
+	}
+	if(steeringFactor < .45){
 		//right turn
 		dutyCycle = 9;
 		right = 20;
 		left = 30;
 	}
-	if(steeringFactor > 1.5){
+	if(steeringFactor < .35){
+		//hard right turn
+		right = 0;
+		left = 30;
+	}
+	if(steeringFactor > 1.35){
+		//soft left turn
+		dutyCycle = 6;
+	}
+	if(steeringFactor > 1.55){
 		//left turn
 		dutyCycle = 5;
 		right = 30;
 		left = 20;
 		//left = 0;
 	}
-	if(steeringFactor > 1.8){
+	if(steeringFactor > 1.65){
 		//hard left turn
 		left = 0;
 		right = 30;
