@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
 D:\IDECar\lab6.uvprojx
-Project File Date:  04/07/2019
+Project File Date:  04/10/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
@@ -36,22 +36,32 @@ pwm.h(6): warning:  #1295-D: Deprecated declaration PWM_ISR - give arg types
   void PWM_ISR();
 pwm.h(8): warning:  #1295-D: Deprecated declaration InitServoPWM - give arg types
   void InitServoPWM();
-steering.c(40): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+Constants.h(1): warning:  #1-D: last line of file ends without a newline
+  #define MAX_PWM (45)
+steering.c(41): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(steeringFactor < .75){
+steering.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	if(steeringFactor < .65){
-steering.c(44): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+steering.c(48): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(steeringFactor < .55){
+steering.c(52): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	if(steeringFactor < .45){
-steering.c(50): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+steering.c(56): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	if(steeringFactor < .35){
-steering.c(55): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+steering.c(61): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	if(steeringFactor > 1.35){
-steering.c(59): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+steering.c(65): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(steeringFactor > 1.45){
+steering.c(68): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	if(steeringFactor > 1.55){
-steering.c(66): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+steering.c(73): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	if(steeringFactor > 1.65){
-steering.c: 10 warnings, 0 errors
+steering.c(78): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(steeringFactor > 1.75){
+steering.c: 15 warnings, 0 errors
 linking...
-Program Size: Code=7460 RO-data=1232 RW-data=40 ZI-data=1736  
-".\Objects\lab6.axf" - 0 Error(s), 10 Warning(s).
+Program Size: Code=7576 RO-data=1232 RW-data=40 ZI-data=1736  
+".\Objects\lab6.axf" - 0 Error(s), 15 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -77,9 +87,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.1.2
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\ARM\startup_MK64F12.s
       Source file:   Device\Source\system_MK64F12.c
-Build Time Elapsed:  00:00:02
+      Source file:   Device\Source\ARM\startup_MK64F12.s
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

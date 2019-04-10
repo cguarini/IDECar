@@ -91,7 +91,6 @@ int main(void){
 		getLine(line);
 		steeringFunction(line);
 		//SetDutyCycle(0, 0, freq, dir);
-		delay(10);
 	}
 	return 0;
 

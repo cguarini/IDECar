@@ -1,5 +1,5 @@
 Dependencies for Project 'lab6', Target 'Target 1': (DO NOT MODIFY !)
-F (.\main_template_lab6.c)(0x5CAA4E06)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DMK64FX512xxx12-o .\objects\main_template_lab6.o --omf_browse .\objects\main_template_lab6.crf --depend .\objects\main_template_lab6.d)
+F (.\main_template_lab6.c)(0x5CAE3EF6)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DMK64FX512xxx12-o .\objects\main_template_lab6.o --omf_browse .\objects\main_template_lab6.crf --depend .\objects\main_template_lab6.d)
 I (MK64F12.h)(0x5C649850)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F83FE)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\core_cm4.h)(0x5B622754)
@@ -46,7 +46,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F83FC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F83FC)
 I (uart.h)(0x5C6DC1B6)
 F (.\camera.h)(0x5CA4DAA2)()
-F (.\steering.c)(0x5CAA5AF0)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DMK64FX512xxx12-o .\objects\steering.o --omf_browse .\objects\steering.crf --depend .\objects\steering.d)
+F (.\steering.c)(0x5CAE3E72)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DMK64FX512xxx12-o .\objects\steering.o --omf_browse .\objects\steering.crf --depend .\objects\steering.d)
 I (MK64F12.h)(0x5C649850)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F83FE)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\core_cm4.h)(0x5B622754)
@@ -59,7 +59,9 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F83FC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F83FC)
 I (pwm.h)(0x5CAA3AE8)
 I (uart.h)(0x5C6DC1B6)
+I (Constants.h)(0x5CAE4064)
 F (.\steering.h)(0x5CA4F472)()
+F (.\Constants.h)(0x5CAE4064)()
 F (RTE\Device\MK64FX512xxx12\startup_MK64F12.s)(0x5CA4FA12)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include--pd "__UVISION_VERSION SETA 527" --pd "_RTE_ SETA 1" --pd "MK64FX512xxx12 SETA 1"--list .\listings\startup_mk64f12.lst --xref -o .\objects\startup_mk64f12.o --depend .\objects\startup_mk64f12.d)
 F (RTE\Device\MK64FX512xxx12\system_MK64F12.c)(0x5404B3D0)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DMK64FX512xxx12-o .\objects\system_mk64f12.o --omf_browse .\objects\system_mk64f12.crf --depend .\objects\system_mk64f12.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F83FE)

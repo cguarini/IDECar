@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "pwm.h"
 #include "uart.h"
+#include "Constants.h"
 
 #define MAX_INPUT (65535)
 
@@ -34,39 +35,49 @@ void Steer(float steeringFactor){
 	//default straight
 	
 	int dutyCycle = 7;
-	int left = 35;
-	int right = 35;
+	int left = MAX_PWM;
+	int right = MAX_PWM;
 	//LUT for how hard to turn
-	if(steeringFactor < .65){
+	if(steeringFactor < .75){
 		//soft right turn
 		dutyCycle = 8;
 	}
-	if(steeringFactor < .45){
+	if(steeringFactor < .65){
+		right = MAX_PWM - (MAX_PWM * .1);
+	}
+	if(steeringFactor < .55){
 		//right turn
 		dutyCycle = 9;
-		right = 20;
-		left = 30;
+	}
+	if(steeringFactor < .45){
+		right = MAX_PWM - (MAX_PWM * .4);
+		left = MAX_PWM;
 	}
 	if(steeringFactor < .35){
 		//hard right turn
 		right = 0;
-		left = 30;
+		left = MAX_PWM - (MAX_PWM * .1);
 	}
 	if(steeringFactor > 1.35){
 		//soft left turn
 		dutyCycle = 6;
 	}
+	if(steeringFactor > 1.45){
+		left = MAX_PWM - (MAX_PWM * .1);
+	}
 	if(steeringFactor > 1.55){
 		//left turn
 		dutyCycle = 5;
-		right = 30;
-		left = 20;
 		//left = 0;
 	}
 	if(steeringFactor > 1.65){
+		//left turn
+		right = MAX_PWM;
+		left = MAX_PWM - (MAX_PWM * .4);
+	}
+	if(steeringFactor > 1.75){
 		//hard left turn
 		left = 0;
-		right = 30;
 	}
 	SetServoDutyCycle(dutyCycle, 50, 0);
 	SetDutyCycle(left, right, freq, dir);

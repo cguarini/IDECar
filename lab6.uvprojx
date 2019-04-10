@@ -432,6 +432,11 @@
               <FileType>5</FileType>
               <FilePath>.\steering.h</FilePath>
             </File>
+            <File>
+              <FileName>Constants.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Constants.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
