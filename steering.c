@@ -38,49 +38,51 @@ void Steer(float steeringFactor){
 	int dutyCycle = 7;
 	int left = MAX_PWM;
 	int right = MAX_PWM;
-	float steeringP = STRAIGHT + .4 * (1 - steeringFactor);
+	float steeringP = STRAIGHT + .2 * (1 - steeringFactor);
+	
+	//PIT VALUES
+	if(steeringP > 1){
+		right = MAX_PWM * (((steeringP - 1) * -1) + 1);
+	}
+	else{
+		left = MAX_PWM * steeringP;
+	}
+/*	
+	if(steeringP > 1.15){
+		left = MAX_PWM - ((MAX_PWM - right) / 2);
+	}
+	else if(steeringP < .85){
+		right = MAX_PWM - ((MAX_PWM - left) / 2);
+	}
+*/	
 	//LUT for how hard to turn
 	if(steeringFactor < .75){
 		//soft right turn
 		dutyCycle = 8;
 	}
 	if(steeringFactor < .65){
-		right = MAX_PWM - (MAX_PWM * .1);
-	}
-	if(steeringFactor < .55){
 		//right turn
 		dutyCycle = 9;
 	}
-	if(steeringFactor < .45){
-		right = MAX_PWM - (MAX_PWM * .4);
-		left = MAX_PWM;
-	}
-	if(steeringFactor < .35){
+	if(steeringFactor < .4){
 		//hard right turn
 		right = 0;
-		left = MAX_PWM - (MAX_PWM * .1);
+		//left = MAX_PWM - (MAX_PWM * .1);
 	}
 	if(steeringFactor > 1.35){
 		//soft left turn
 		dutyCycle = 6;
 	}
-	if(steeringFactor > 1.45){
-		left = MAX_PWM - (MAX_PWM * .1);
-	}
-	if(steeringFactor > 1.55){
+	if(steeringFactor > 1.50){
 		//left turn
 		dutyCycle = 5;
 		//left = 0;
 	}
-	if(steeringFactor > 1.65){
-		//left turn
-		right = MAX_PWM;
-		left = MAX_PWM - (MAX_PWM * .4);
-	}
-	if(steeringFactor > 1.75){
+	if(steeringFactor > 1.7){
 		//hard left turn
 		left = 0;
 	}
+	
 	SetServoDutyCycle(dutyCycle, 50, 0);
 	SetDutyCycle(left, right, freq, dir);
 

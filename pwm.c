@@ -9,6 +9,7 @@
  */
 #include "MK64F12.h"
 #include "pwm.h"
+#include "Constants.h"
 
 /*From clock setup 0 in system_MK64f12.c*/
 #define DEFAULT_SYSTEM_CLOCK 20485760u /* Default System clock value */
@@ -27,6 +28,13 @@ static volatile unsigned int PWMTick = 0;
  */
 void SetDutyCycle(unsigned int leftDuty, unsigned int rightDuty, unsigned int Frequency, int dir)
 {
+	
+	if(leftDuty > MAX_PWM){
+		leftDuty = MAX_PWM;
+	}
+	if(rightDuty > MAX_PWM){
+		rightDuty = MAX_PWM;
+	}
 	// Calculate the new cutoff value
 	uint16_t modLeft = (uint16_t) (((CLOCK/Frequency) * leftDuty) / 100);
 	uint16_t modRight = (uint16_t) (((CLOCK/Frequency) * rightDuty) / 100);

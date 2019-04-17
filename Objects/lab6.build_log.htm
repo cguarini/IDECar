@@ -37,33 +37,25 @@ pwm.h(6): warning:  #1295-D: Deprecated declaration PWM_ISR - give arg types
 pwm.h(8): warning:  #1295-D: Deprecated declaration InitServoPWM - give arg types
   void InitServoPWM();
 Constants.h(1): warning:  #1-D: last line of file ends without a newline
-  #define MAX_PWM (0)
+  #define MAX_PWM (55)
 steering.c(41): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float steeringP = STRAIGHT + .4 * (1 - steeringFactor);
-steering.c(43): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	float steeringP = STRAIGHT + .2 * (1 - steeringFactor);
+steering.c(59): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	if(steeringFactor < .75){
-steering.c(47): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor < .65){
-steering.c(50): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor < .55){
-steering.c(54): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor < .45){
-steering.c(58): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor < .35){
 steering.c(63): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor > 1.35){
+  	if(steeringFactor < .65){
 steering.c(67): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor > 1.45){
-steering.c(70): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor > 1.55){
-steering.c(75): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor > 1.65){
-steering.c(80): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor > 1.75){
-steering.c: 16 warnings, 0 errors
+  	if(steeringFactor < .4){
+steering.c(72): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(steeringFactor > 1.35){
+steering.c(76): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(steeringFactor > 1.50){
+steering.c(81): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(steeringFactor > 1.7){
+steering.c: 12 warnings, 0 errors
 linking...
-Program Size: Code=8908 RO-data=1232 RW-data=40 ZI-data=1736  
-".\Objects\lab6.axf" - 0 Error(s), 16 Warning(s).
+Program Size: Code=8844 RO-data=1232 RW-data=40 ZI-data=1736  
+".\Objects\lab6.axf" - 0 Error(s), 12 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -91,7 +83,7 @@ Package Vendor: Keil
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device\Source\system_MK64F12.c
       Source file:   Device\Source\ARM\startup_MK64F12.s
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
