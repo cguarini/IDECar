@@ -1,1 +1,1 @@
-#define MAX_PWM (45)
+#define MAX_PWM (0)

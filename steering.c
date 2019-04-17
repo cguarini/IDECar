@@ -7,6 +7,7 @@
 #include "Constants.h"
 
 #define MAX_INPUT (65535)
+#define STRAIGHT (1)
 
 int maxValue = 0;
 
@@ -37,6 +38,7 @@ void Steer(float steeringFactor){
 	int dutyCycle = 7;
 	int left = MAX_PWM;
 	int right = MAX_PWM;
+	float steeringP = STRAIGHT + .4 * (1 - steeringFactor);
 	//LUT for how hard to turn
 	if(steeringFactor < .75){
 		//soft right turn

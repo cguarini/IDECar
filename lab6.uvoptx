@@ -140,7 +140,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"Any" -UAny -O206 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN2 -FF0MK_P512X.FLM -FS00 -FL080000 -FP0($$Device:MK64FX512xxx12$Flash\MK_P512X.FLM) -FF1MKD128_4KB_SECTOR.FLM -FS110000000 -FL120000 -FP1($$Device:MK64FX512xxx12$Flash\MKD128_4KB_SECTOR.FLM)</Name>
+          <Name>-X"MBED CMSIS-DAP" -U0240022616975e0b0000000000000000 -O206 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN2 -FF0MK_P512X.FLM -FS00 -FL080000 -FP0($$Device:MK64FX512xxx12$Flash\MK_P512X.FLM) -FF1MKD128_4KB_SECTOR.FLM -FS110000000 -FL120000 -FP1($$Device:MK64FX512xxx12$Flash\MKD128_4KB_SECTOR.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -148,7 +148,24 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN2 -FF0MK_P512X -FS00 -FL080000 -FF1MKD128_4KB_SECTOR -FS110000000 -FL120000 -FP0($$Device:MK64FX512xxx12$Flash\MK_P512X.FLM) -FP1($$Device:MK64FX512xxx12$Flash\MKD128_4KB_SECTOR.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>43</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>6358</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\steering.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\lab6\steering.c\43</Expression>
+        </Bp>
+      </Breakpoint>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -191,24 +208,6 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
-      <SystemViewers>
-        <Entry>
-          <Name>System Viewer\FTM2</Name>
-          <WinId>35902</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\GPIOB</Name>
-          <WinId>35903</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\PORTB</Name>
-          <WinId>35904</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\PORTC</Name>
-          <WinId>35905</WinId>
-        </Entry>
-      </SystemViewers>
     </TargetOption>
   </Target>
 
