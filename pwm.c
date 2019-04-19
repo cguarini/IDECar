@@ -26,13 +26,19 @@ static volatile unsigned int PWMTick = 0;
  * @param Frequency (~1000 Hz to 20000 Hz)
  * @param dir: 1 for C4 active, else C3 active 
  */
-void SetDutyCycle(unsigned int leftDuty, unsigned int rightDuty, unsigned int Frequency, int dir)
+void SetDutyCycle(float leftDuty, float rightDuty, unsigned int Frequency, int dir)
 {
 	
-	if(leftDuty > MAX_PWM){
+	if(leftDuty > 100){
 		leftDuty = MAX_PWM;
 	}
-	if(rightDuty > MAX_PWM){
+	if(rightDuty > 100){
+		rightDuty = MAX_PWM;
+	}
+	if(leftDuty < 0){
+		leftDuty = MAX_PWM;
+	}
+	if(rightDuty < 0){
 		rightDuty = MAX_PWM;
 	}
 	// Calculate the new cutoff value

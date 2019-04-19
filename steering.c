@@ -10,7 +10,7 @@
 #define STRAIGHT (1)
 
 int maxValue = 0;
-int maxSpeed = 0;
+float maxSpeed = 0;
 
 uint16_t scaledLine[128];
 
@@ -36,38 +36,41 @@ void Steer(float steeringFactor){
 	
 	//Initial value
 	if (maxSpeed == 0){
-		maxSpeed = .5 * MAX_PWM;
+		maxSpeed = (float) (.75 * MAX_PWM);
 	}
 	//default straight
 	float dutyCycle = 7;
 	int left = MAX_PWM;
 	int right = MAX_PWM;
-	float steeringP = STRAIGHT + .2 * (1 - steeringFactor);
+	float steeringP = STRAIGHT + 1.5 * (1 - steeringFactor);
 	
 		
 	if(maxSpeed < MAX_PWM){
-		maxSpeed += .01 * MAX_PWM;
+		maxSpeed += (float) (.01 * MAX_PWM);
 	}
 	
 	//PID VALUES
 	if(steeringP > 1){
-		right = MAX_PWM * (((steeringP - 1) * -1) + 1);
+		right = (float) (maxSpeed * (((steeringP - 1) * -1) + 1));
 	}
 	else{
-		left = MAX_PWM * steeringP;
+		left = (float) ((maxSpeed * steeringP));
 	}
 	
-	dutyCycle = .8 * 7.0 * (((steeringFactor - 1) * -1) + 1) + .7;
+	right = maxSpeed;
+	left = maxSpeed;
+	
+	dutyCycle = .5 * 7 * (((steeringFactor - 1) * -1) + 1) + 4;
 
 	
-/*	
-	if(steeringP > 1.15){
+/*
+	if(steeringP > 1){
 		left = MAX_PWM - ((MAX_PWM - right) / 2);
 	}
-	else if(steeringP < .85){
+	else if(steeringP < 1){
 		right = MAX_PWM - ((MAX_PWM - left) / 2);
 	}
-*/	
+*/
 	//LUT for how hard to turn
 	/*
 	if(steeringFactor < .75){
@@ -87,7 +90,7 @@ void Steer(float steeringFactor){
 		//left = MAX_PWM - (MAX_PWM * .1);
 	}
 	
-	if(steeringFactor < 1.35 && steeringFactor > .75){
+	if(steeringFactor < 1.1 && steeringFactor > .9){
 		dutyCycle = 7;
 	}
 	
@@ -105,7 +108,7 @@ void Steer(float steeringFactor){
 	*/
 	if(steeringFactor > 1.7){
 		//hard left turn
-		maxSpeed = .5 * MAX_PWM;
+		maxSpeed = (float) (.5 * MAX_PWM);
 		left = 0;
 	}
 	
