@@ -52,7 +52,16 @@ void SetDutyCycle(unsigned int leftDuty, unsigned int rightDuty, unsigned int Fr
 	FTM0_MOD = (CLOCK/Frequency);
 }
 
-void SetServoDutyCycle(unsigned int DutyCycle, unsigned int Frequency, int dir){
+void SetServoDutyCycle(float DutyCycle, unsigned int Frequency, int dir){
+	
+	//Bounds
+	if(DutyCycle < 5){
+		DutyCycle = 5;
+	}
+	else if(DutyCycle > 9){
+		DutyCycle = 9;
+	}
+	
 	// Calculate the new cutoff value
 	uint16_t mod = (uint16_t) ((((CLOCK/128)/Frequency) * DutyCycle) / 100);
   

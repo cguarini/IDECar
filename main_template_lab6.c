@@ -64,7 +64,6 @@ int test_main(void){
 			else if( i <=5){
 				j = 1;
 			}
-			//delay(10);
 		}
 	return 0;
 }
