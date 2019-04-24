@@ -1,1 +1,2 @@
-#define MAX_PWM (45)
+#define MAX_PWM (35)
+#define TURN_PWM (35)

@@ -5,9 +5,13 @@
 #include "pwm.h"
 #include "uart.h"
 #include "Constants.h"
+#include "steering.h"
 
 #define MAX_INPUT (65535)
 #define STRAIGHT (1)
+
+
+
 
 int maxValue = 0;
 float maxSpeed = 0;
@@ -34,86 +38,69 @@ void Steer(float steeringFactor){
 		put("\n\r");
 	}
 	
-	//Initial value
-	if (maxSpeed == 0){
-		maxSpeed = (float) (.75 * MAX_PWM);
-	}
+
 	//default straight
 	float dutyCycle = 7;
 	int left = MAX_PWM;
 	int right = MAX_PWM;
-	float steeringP = STRAIGHT + 1.5 * (1 - steeringFactor);
 	
-		
+	//Initial value
+	if (maxSpeed == 0){
+		maxSpeed = (float) (.75 * MAX_PWM);
+	}
+	//Ramp up speed
 	if(maxSpeed < MAX_PWM){
 		maxSpeed += (float) (.01 * MAX_PWM);
 	}
 	
-	//PID VALUES
+	// differential steering
+	float steeringP = STRAIGHT + 1.5 * (1 - steeringFactor);
 	if(steeringP > 1){
+		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * (((steeringP - 1) * -1) + 1)));
 		right = (float) (maxSpeed * (((steeringP - 1) * -1) + 1));
+		left = maxSpeed;
 	}
 	else{
+		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * steeringP));
 		left = (float) ((maxSpeed * steeringP));
+		right = maxSpeed;
 	}
 	
-	right = maxSpeed;
-	left = maxSpeed;
+	//Turn off PID differential steering
+	//right = maxSpeed;
+	//left = maxSpeed;
 	
-	dutyCycle = .5 * 7 * (((steeringFactor - 1) * -1) + 1) + 4;
+	//PID servo steering
+	dutyCycle = .5 * 7.25 * (((steeringFactor - 1) * -1) + 1) + 4;
 
 	
-/*
-	if(steeringP > 1){
-		left = MAX_PWM - ((MAX_PWM - right) / 2);
-	}
-	else if(steeringP < 1){
-		right = MAX_PWM - ((MAX_PWM - left) / 2);
-	}
-*/
-	//LUT for how hard to turn
-	/*
-	if(steeringFactor < .75){
-		//soft right turn
-		dutyCycle = 8;
-	}
-	if(steeringFactor < .65){
-		//right turn
-		dutyCycle = 9;
-	}
-	
-	*/
-	if(steeringFactor < .4){
+	//Handle drifting
+	if(steeringFactor < .5){
 		//hard right turn
-		right = 0;
-		maxSpeed = .5 * MAX_PWM;
-		//left = MAX_PWM - (MAX_PWM * .1);
+		right = 0;//cut right motor
+		left = TURN_PWM;//left motor full turning speed
+		dutyCycle = 9; // hard right turn with servo
+		//Drop speed during hard right turns, will have to ramp up back to full speed
+		maxSpeed = TURN_PWM;
 	}
 	
+	//Keep straight
 	if(steeringFactor < 1.1 && steeringFactor > .9){
 		dutyCycle = 7;
 	}
 	
-	/*
-	if(steeringFactor > 1.35){
-		//soft left turn
-		dutyCycle = 6;
-	}
-	if(steeringFactor > 1.50){
-		//left turn
-		dutyCycle = 5;
-		//left = 0;
-	}
-	
-	*/
-	if(steeringFactor > 1.7){
+	if(steeringFactor > 1.5){
 		//hard left turn
-		maxSpeed = (float) (.5 * MAX_PWM);
-		left = 0;
+		left = 0;//Cut left motor
+		right = TURN_PWM;//right motor full turning speed
+		dutyCycle = 5; //hard left servo turn
+	  //Drop speed during hard left turns. Has to ramp up back to full speed
+		maxSpeed = TURN_PWM;
 	}
 	
 	SetServoDutyCycle(dutyCycle, 50, 0);
 	SetDutyCycle(left, right, freq, dir);
+
 
 
 	
@@ -168,7 +155,12 @@ void steeringFunction(uint16_t line[128]){
 	
 	float steeringFactor;
 	
-	steeringFactor = ((float) left) /((float) right);
+	if(right > left){//need to turn left
+		steeringFactor = ((float) left) /((float) right);
+	}
+	else{//need to turn right
+		steeringFactor = (float) (1 + ((float) right) /((float) left));
+	}
 	
 	Steer(steeringFactor);
 	
@@ -177,7 +169,17 @@ void steeringFunction(uint16_t line[128]){
 
 
 
-
+/**
+ * Waits for a delay (in milliseconds)
+ * 
+ * del - The delay in milliseconds
+ */
+void delay(int del){
+	int i;
+	for (i=0; i<del*50000; i++){
+		// Do nothing
+	}
+}
 
 
 

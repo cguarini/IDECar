@@ -15,7 +15,6 @@
 
 void initialize();
 void en_interrupts();
-void delay();
 
 void turnOffAll(){
 		GPIOD_PCOR = (1 << 0);
@@ -97,17 +96,6 @@ int main(void){
 
 
 
-/**
- * Waits for a delay (in milliseconds)
- * 
- * del - The delay in milliseconds
- */
-void delay(int del){
-	int i;
-	for (i=0; i<del*50000; i++){
-		// Do nothing
-	}
-}
 
 void motor_shield_init(){
 	//enable PORTB clock
