@@ -15,6 +15,8 @@
 
 int maxValue = 0;
 float maxSpeed = 0;
+float turnFactor = 0;
+
 
 uint16_t scaledLine[128];
 
@@ -44,38 +46,36 @@ void Steer(float steeringFactor){
 	int left = MAX_PWM;
 	int right = MAX_PWM;
 	
-	//Initial value
-	if (maxSpeed == 0){
-		maxSpeed = (float) (.75 * MAX_PWM);
+	
+		//Initial value
+	if (turnFactor == 0){
+		turnFactor = (float) (.75);
 	}
 	//Ramp up speed
-	if(maxSpeed < MAX_PWM){
-		maxSpeed += (float) (.01 * MAX_PWM);
+	if(turnFactor < 1.0){
+		turnFactor += (float) (.01);
 	}
 	
 	// differential steering
-	float steeringP = STRAIGHT + 1.5 * (1 - steeringFactor);
-	if(steeringP > 1){
-		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * (((steeringP - 1) * -1) + 1)));
-		right = (float) (maxSpeed * (((steeringP - 1) * -1) + 1));
-		left = maxSpeed;
+	if(steeringFactor > 1){
+		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * (((steeringFactor - 1) * -1) + 1)));
 	}
 	else{
-		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * steeringP));
-		left = (float) ((maxSpeed * steeringP));
-		right = maxSpeed;
+		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * steeringFactor));
 	}
 	
+	maxSpeed = ((float) turnFactor * maxSpeed);
+	
 	//Turn off PID differential steering
-	//right = maxSpeed;
-	//left = maxSpeed;
+	right = maxSpeed;
+	left = maxSpeed;
 	
 	//PID servo steering
 	dutyCycle = .5 * 7.25 * (((steeringFactor - 1) * -1) + 1) + 4;
 
 	
 	//Handle drifting
-	if(steeringFactor < .5){
+	if(steeringFactor < .6){
 		//hard right turn
 		right = 0;//cut right motor
 		left = TURN_PWM;//left motor full turning speed
@@ -85,7 +85,7 @@ void Steer(float steeringFactor){
 	}
 	
 	//Keep straight
-	if(steeringFactor < 1.1 && steeringFactor > .9){
+	if(steeringFactor < 1.05 && steeringFactor > .95){
 		dutyCycle = 7;
 	}
 	
@@ -155,12 +155,8 @@ void steeringFunction(uint16_t line[128]){
 	
 	float steeringFactor;
 	
-	if(right > left){//need to turn left
 		steeringFactor = ((float) left) /((float) right);
-	}
-	else{//need to turn right
-		steeringFactor = (float) (1 + ((float) right) /((float) left));
-	}
+
 	
 	Steer(steeringFactor);
 	
