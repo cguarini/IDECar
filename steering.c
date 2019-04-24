@@ -59,7 +59,7 @@ void Steer(float steeringFactor){
 	// differential steering
 	if(steeringFactor > 1){
 		//turnFactor = (((steeringFactor - 1) * -1) + 1);
-		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * ((((steeringFactor - 1) * -1) + 1) * .7)));
+		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * ((((steeringFactor - 1) * -1) + 1) * .5)));
 	}
 	else{
 		//turnFactor = steeringFactor;
@@ -77,7 +77,7 @@ void Steer(float steeringFactor){
 
 	
 	//Handle drifting
-	if(steeringFactor < .6){
+	if(steeringFactor < .7){
 		//hard right turn
 		right = 0;//cut right motor
 		left = TURN_PWM;//left motor full turning speed
