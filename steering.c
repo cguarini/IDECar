@@ -58,12 +58,12 @@ void Steer(float steeringFactor){
 	
 	// differential steering
 	if(steeringFactor > 1){
-		turnFactor = (((steeringFactor - 1) * -1) + 1);
-		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * (((steeringFactor - 1) * -1) + 1)));\
+		//turnFactor = (((steeringFactor - 1) * -1) + 1);
+		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * ((((steeringFactor - 1) * -1) + 1) * .7)));
 	}
 	else{
-		turnFactor = steeringFactor;
-		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * steeringFactor));
+		//turnFactor = steeringFactor;
+		maxSpeed = (float) (TURN_PWM + ((MAX_PWM - TURN_PWM) * (steeringFactor * .5)));
 	}
 	
 	maxSpeed = ((float) turnFactor * maxSpeed);
@@ -90,7 +90,7 @@ void Steer(float steeringFactor){
 	
 	//Keep straight
 	if(steeringFactor < 1.05 && steeringFactor > .95){
-		dutyCycle = 7;
+		dutyCycle = 7.25;
 	}
 	
 	if(steeringFactor > 1.5){
