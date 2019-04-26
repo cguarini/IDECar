@@ -73,15 +73,15 @@ void Steer(float steeringFactor){
 	left = maxSpeed;
 	
 	//PID servo steering
-	dutyCycle = .5 * 7.25 * (((steeringFactor - 1) * -1) + 1) + 4;
+	dutyCycle = 7.25  + ( -1 *(2 * 1.5 *  (((steeringFactor - 1) ))));
 
 	
 	//Handle drifting
-	if(steeringFactor < .7){
+	if(steeringFactor < .6){//.7
 		//hard right turn
 		right = 0;//cut right motor
 		left = TURN_PWM;//left motor full turning speed
-		dutyCycle = 9; // hard right turn with servo
+		//dutyCycle = 9; // hard right turn with servo
 		//Drop speed during hard right turns, will have to ramp up back to full speed
 		maxSpeed = TURN_PWM;
 		turnFactor = .5;
@@ -93,11 +93,11 @@ void Steer(float steeringFactor){
 		dutyCycle = 7.25;
 	}
 	
-	if(steeringFactor > 1.5){
+	if(steeringFactor > 1.6){//1.5
 		//hard left turn
 		left = 0;//Cut left motor
 		right = TURN_PWM;//right motor full turning speed
-		dutyCycle = 5; //hard left servo turn
+		//dutyCycle = 5; //hard left servo turn
 	  //Drop speed during hard left turns. Has to ramp up back to full speed
 		maxSpeed = TURN_PWM;
 		turnFactor = .5;
@@ -147,13 +147,13 @@ void steeringFunction(uint16_t line[128]){
 		
 		scaledLine[i] = (uint16_t) newValue;
 		
-		total += scaledLine[i];
+		total += line[i];
 		
 		if(i < 65){
-			left += scaledLine[i];
+			left += line[i];
 		}
 		else{
-			right += scaledLine[i];
+			right += line[i];
 		}
 		
 	}
