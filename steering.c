@@ -86,7 +86,7 @@ void Steer(float steeringFactor, int MAX_PWM, int TURN_PWM){
 
 	
 	//Handle drifting
-	if(steeringFactor < .7){//.7
+	if(steeringFactor < .6){//.7
 		//hard right turn
 		right = 0;//cut right motor
 		left = TURN_PWM;//left motor full turning speed
@@ -102,7 +102,7 @@ void Steer(float steeringFactor, int MAX_PWM, int TURN_PWM){
 		dutyCycle = 7.25;
 	}
 	
-	if(steeringFactor > 1.4){//1.5
+	if(steeringFactor > 1.6){//1.5
 		//hard left turn
 		left = 0;//Cut left motor
 		right = TURN_PWM;//right motor full turning speed
