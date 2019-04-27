@@ -12,4 +12,4 @@
 .\objects\steering.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\steering.o: pwm.h
 .\objects\steering.o: uart.h
-.\objects\steering.o: Constants.h
+.\objects\steering.o: steering.h

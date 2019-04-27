@@ -22,49 +22,44 @@ Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
 C:\Users\Chris\Desktop\IDE\IDECar\lab6.uvprojx
-Project File Date:  04/19/2019
+Project File Date:  04/27/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling pwm.c...
+compiling main.c...
 MK64F12.h(13705): warning:  #1-D: last line of file ends without a newline
    
-pwm.h(5): warning:  #1295-D: Deprecated declaration InitPWM - give arg types
+PWM.h(5): warning:  #1295-D: Deprecated declaration InitPWM - give arg types
   void InitPWM();
-pwm.h(6): warning:  #1295-D: Deprecated declaration PWM_ISR - give arg types
+PWM.h(6): warning:  #1295-D: Deprecated declaration PWM_ISR - give arg types
   void PWM_ISR();
-pwm.h(8): warning:  #1295-D: Deprecated declaration InitServoPWM - give arg types
+PWM.h(8): warning:  #1295-D: Deprecated declaration InitServoPWM - give arg types
   void InitServoPWM();
-Constants.h(1): warning:  #1-D: last line of file ends without a newline
-  #define MAX_PWM (45)
-pwm.c: 5 warnings, 0 errors
-compiling steering.c...
-MK64F12.h(13705): warning:  #1-D: last line of file ends without a newline
-   
-pwm.h(5): warning:  #1295-D: Deprecated declaration InitPWM - give arg types
-  void InitPWM();
-pwm.h(6): warning:  #1295-D: Deprecated declaration PWM_ISR - give arg types
-  void PWM_ISR();
-pwm.h(8): warning:  #1295-D: Deprecated declaration InitServoPWM - give arg types
-  void InitServoPWM();
-Constants.h(1): warning:  #1-D: last line of file ends without a newline
-  #define MAX_PWM (45)
-steering.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float steeringP = 
-TRAIGHT + .2 * (1 - steeringFactor);
-steering.c(83): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor < .4){
-steering.c(90): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor < 1.35 && steeringFactor > .75){
-steering.c(90): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor < 1.35 && steeringFactor > .75){
-steering.c(106): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if(steeringFactor > 1.7){
-steering.c: 10 warnings, 0 errors
+steering.h(2): warning:  #1295-D: Deprecated declaration delay - give arg types
+  void delay();
+Constants.h(9): warning:  #1-D: last line of file ends without a newline
+  int TURN_PWM = 45;
+main.c(17): warning:  #1295-D: Deprecated declaration initialize - give arg types
+  void initialize();
+main.c(18): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
+  void en_interrupts();
+main.c(91): warning:  #111-D: statement is unreachable
+  	return 0;
+main.c(72): warning:  #177-D: variable "dc" was declared but never referenced
+  		uint16_t dc = 0;
+main.c(75): warning:  #177-D: variable "c" was declared but never referenced
+  		char c = 48;
+main.c(146): warning:  #111-D: statement is unreachable
+  	return 0;
+main.c(104): warning:  #177-D: variable "freq" was declared but never referenced
+  	uint16_t freq = 10000; /* Frequency = 10 kHz */
+main.c(105): warning:  #177-D: variable "dir" was declared but never referenced
+  	uint16_t dir = 1;
+main.c: 14 warnings, 0 errors
 linking...
-Program Size: Code=9116 RO-data=1232 RW-data=44 ZI-data=1732  
-".\Objects\lab6.axf" - 0 Error(s), 15 Warning(s).
+Program Size: Code=9608 RO-data=1232 RW-data=56 ZI-data=1736  
+".\Objects\lab6.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 

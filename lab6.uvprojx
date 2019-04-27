@@ -380,11 +380,6 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>main_template_lab6.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main_template_lab6.c</FilePath>
-            </File>
-            <File>
               <FileName>MK64F12.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\MK64F12.h</FilePath>
@@ -433,6 +428,11 @@
               <FileName>Constants.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Constants.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>
