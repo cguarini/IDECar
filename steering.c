@@ -55,7 +55,7 @@ void Steer(float steeringFactor, int MAX_PWM, int TURN_PWM){
 	}
 	//Ramp up speed
 	if(turnFactor < 1.0){
-		turnFactor += (float) ((normalizedSteeringFactor - .4 )* .01);
+		turnFactor += (float) ((normalizedSteeringFactor )* .01);
 	}
 	if(turnFactor > 1.0){
 		turnFactor = 1.0;
@@ -93,7 +93,7 @@ void Steer(float steeringFactor, int MAX_PWM, int TURN_PWM){
 		//dutyCycle = 9; // hard right turn with servo
 		//Drop speed during hard right turns, will have to ramp up back to full speed
 		maxSpeed = TURN_PWM;
-		turnFactor = .25;
+		turnFactor = .5;
 
 	}
 	
@@ -109,7 +109,7 @@ void Steer(float steeringFactor, int MAX_PWM, int TURN_PWM){
 		//dutyCycle = 5; //hard left servo turn
 	  //Drop speed during hard left turns. Has to ramp up back to full speed
 		maxSpeed = TURN_PWM;
-		turnFactor = .25;
+		turnFactor = .5;
 	}
 	
 	SetServoDutyCycle(dutyCycle, 50, 0);
