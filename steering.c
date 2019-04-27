@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include "pwm.h"
 #include "uart.h"
-#include "Constants.h"
 #include "steering.h"
 
 #define MAX_INPUT (65535)
@@ -30,7 +29,7 @@ uint16_t dir = 1;
 
 
 //Determines how hard the car has to turn
-void Steer(float steeringFactor){
+void Steer(float steeringFactor, int MAX_PWM, int TURN_PWM){
 	
 	//Prints steering factor to console
 	if(steeringDebug){
@@ -39,6 +38,9 @@ void Steer(float steeringFactor){
 		put(str);
 		put("\n\r");
 	}
+	
+	float normalizedSteeringFactor = (((steeringFactor - 1) * -1) + 1);
+
 	
 
 	//default straight
@@ -53,8 +55,15 @@ void Steer(float steeringFactor){
 	}
 	//Ramp up speed
 	if(turnFactor < 1.0){
-		turnFactor += (float) (.01);
+		turnFactor += (float) ((normalizedSteeringFactor - .4 )* .01);
 	}
+	if(turnFactor > 1.0){
+		turnFactor = 1.0;
+	}
+	if(turnFactor < .25){
+		turnFactor = .25;
+	}
+	
 	
 	// differential steering
 	if(steeringFactor > 1){
@@ -73,18 +82,18 @@ void Steer(float steeringFactor){
 	left = maxSpeed;
 	
 	//PID servo steering
-	dutyCycle = 7.25  + ( -1 *(2 * 1.5 *  (((steeringFactor - 1) ))));
+	dutyCycle = 7.25  + ( -1 *(2 * 1.75 *  (((steeringFactor - 1) ))));
 
 	
 	//Handle drifting
-	if(steeringFactor < .6){//.7
+	if(steeringFactor < .7){//.7
 		//hard right turn
 		right = 0;//cut right motor
 		left = TURN_PWM;//left motor full turning speed
 		//dutyCycle = 9; // hard right turn with servo
 		//Drop speed during hard right turns, will have to ramp up back to full speed
 		maxSpeed = TURN_PWM;
-		turnFactor = .5;
+		turnFactor = .25;
 
 	}
 	
@@ -93,14 +102,14 @@ void Steer(float steeringFactor){
 		dutyCycle = 7.25;
 	}
 	
-	if(steeringFactor > 1.6){//1.5
+	if(steeringFactor > 1.4){//1.5
 		//hard left turn
 		left = 0;//Cut left motor
 		right = TURN_PWM;//right motor full turning speed
 		//dutyCycle = 5; //hard left servo turn
 	  //Drop speed during hard left turns. Has to ramp up back to full speed
 		maxSpeed = TURN_PWM;
-		turnFactor = .5;
+		turnFactor = .25;
 	}
 	
 	SetServoDutyCycle(dutyCycle, 50, 0);
@@ -111,7 +120,7 @@ void Steer(float steeringFactor){
 	
 }
 
-void steeringFunction(uint16_t line[128]){
+void steeringFunction(uint16_t line[128], int MAX_PWM, int TURN_PWM){
 	
 	//used for steering
 	int left = 0;
@@ -163,7 +172,7 @@ void steeringFunction(uint16_t line[128]){
 		steeringFactor = ((float) left) /((float) right);
 
 	
-	Steer(steeringFactor);
+	Steer(steeringFactor, MAX_PWM, TURN_PWM);
 	
 }
 

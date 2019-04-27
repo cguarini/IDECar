@@ -11,10 +11,37 @@
 #include "PWM.h"
 #include "camera.h"
 #include "steering.h"
+#include "Constants.h"
 
 
 void initialize();
 void en_interrupts();
+
+void Blue_LED()
+{
+	GPIOB_PCOR = (1 << 21);					//Set PTB21 LED to on
+	GPIOB_PDOR = (1 << 22);					//Set PTB22 LED to off
+	GPIOE_PDOR = (1 << 26);					//Set PTE26 LED to off
+}
+
+void Red_LED()
+{
+	GPIOB_PCOR = (1 << 22);					//Set PTB22 LED to on
+	GPIOB_PDOR = (1 << 21);					//Set PTB21 LED to off
+	GPIOE_PDOR = (1 << 26);					//Set PTE26 LED to off
+}
+
+void Green_LED(){
+	GPIOE_PCOR = (1 << 26);					//Set PTE26 LED to on
+	GPIOB_PDOR = (1 << 22);					//Set PTB22 LED to off
+	GPIOB_PDOR = (1 << 21);					//Set PTB21 LED to off
+}
+
+void Off_LED()
+{
+	GPIOB_PSOR = (1UL << 21) | (1UL << 22);
+	GPIOE_PSOR = 1UL << 26;
+}
 
 void turnOffAll(){
 		GPIOD_PCOR = (1 << 0);
@@ -72,6 +99,8 @@ int main(void){
 	// Initialize UART and PWM
 	initialize();
 	initCamera();
+	LED_init();
+	Button_Init();
 
 
 //Step 9
@@ -80,14 +109,44 @@ int main(void){
 	uint16_t dir = 1;
 	
 	uint16_t line[128];
+	
+	int state = 0;
+	Blue_LED();
 
 	
 	// 0 to 100% duty cycle in forward direction
 	for (;;){
 		
+			//Button pressed/held
+	if(!(GPIOC_PDIR & ( 1 << 6))){//checks if SW2 is pressed
+		state++;
+		if(state > 2){
+			state = 0;
+		}
+		
+		if(state == 0){
+			MAX_PWM = 75;
+			TURN_PWM = 45;
+			Blue_LED();
+		}
+		else if(state == 1){
+			MAX_PWM = 65;
+			TURN_PWM = 45;
+			Green_LED();
+		}
+		else{
+			MAX_PWM = 55;
+			TURN_PWM = 45;
+			Red_LED();
+		}
+		
+		delay(50);
+		
+	}
+	
 		
 		getLine(line);
-		steeringFunction(line);
+		steeringFunction(line, MAX_PWM, TURN_PWM);
 		//SetDutyCycle(0, 0, freq, dir);
 	}
 	return 0;

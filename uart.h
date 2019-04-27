@@ -10,5 +10,6 @@ void LED_init(void);
 void SW3_INIT(void);
 void SW2_INIT(void);
 void PDB_INIT(void);
+void Button_Init(void);
 
 # endif /* ifndef UART_H */

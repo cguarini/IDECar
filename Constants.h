@@ -1,2 +1,2 @@
-#define MAX_PWM (65)
-#define TURN_PWM (45)
+int MAX_PWM = 75;
+int TURN_PWM = 45;
