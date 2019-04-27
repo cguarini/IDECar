@@ -20,26 +20,23 @@ void en_interrupts();
 void Blue_LED()
 {
 	GPIOB_PCOR = (1 << 21);					//Set PTB21 LED to on
-	GPIOB_PDOR = (1 << 22);					//Set PTB22 LED to off
 	GPIOE_PDOR = (1 << 26);					//Set PTE26 LED to off
 }
 
-void Red_LED()
-{
-	GPIOB_PCOR = (1 << 22);					//Set PTB22 LED to on
-	GPIOB_PDOR = (1 << 21);					//Set PTB21 LED to off
-	GPIOE_PDOR = (1 << 26);					//Set PTE26 LED to off
+void BlueGreen_LED(){
+	GPIOB_PCOR = (1 << 21);					//Set PTB21 LED to on
+	GPIOE_PCOR = (1 << 26);					//Set PTE26 LED to on
 }
+
 
 void Green_LED(){
 	GPIOE_PCOR = (1 << 26);					//Set PTE26 LED to on
-	GPIOB_PDOR = (1 << 22);					//Set PTB22 LED to off
 	GPIOB_PDOR = (1 << 21);					//Set PTB21 LED to off
 }
 
 void Off_LED()
 {
-	GPIOB_PSOR = (1UL << 21) | (1UL << 22);
+	GPIOB_PSOR = (1UL << 21);
 	GPIOE_PSOR = 1UL << 26;
 }
 
@@ -99,7 +96,6 @@ int main(void){
 	// Initialize UART and PWM
 	initialize();
 	initCamera();
-	LED_init();
 	Button_Init();
 
 
@@ -111,7 +107,8 @@ int main(void){
 	uint16_t line[128];
 	
 	int state = 0;
-	Blue_LED();
+	MAX_PWM = TOP_MAX;
+	TURN_PWM = TOP_TURN;
 
 	
 	// 0 to 100% duty cycle in forward direction
@@ -125,19 +122,16 @@ int main(void){
 		}
 		
 		if(state == 0){
-			MAX_PWM = 75;
-			TURN_PWM = 45;
-			Blue_LED();
+			MAX_PWM = TOP_MAX;
+			TURN_PWM = TOP_TURN;
 		}
 		else if(state == 1){
-			MAX_PWM = 65;
-			TURN_PWM = 45;
-			Green_LED();
+			MAX_PWM = MID_MAX;
+			TURN_PWM = MID_TURN;
 		}
 		else{
-			MAX_PWM = 55;
-			TURN_PWM = 45;
-			Red_LED();
+			MAX_PWM = LOW_MAX;
+			TURN_PWM = LOW_TURN;
 		}
 		
 		delay(50);

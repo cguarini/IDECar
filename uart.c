@@ -96,20 +96,20 @@ void putnumU(int i){
 void LED_init()
 {
 	// Enable clocks on Ports B and E for LED timing
-	SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;		//Enables Port B mask
+	//SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;		//Enables Port B mask
 	SIM_SCGC5 |= SIM_SCGC5_PORTE_MASK;		//Enables Port E mask
 	
 	// Configure the Signal Multiplexer for GPIO
-	PORTB_PCR22 = PORT_PCR_MUX(1);				//Enables GPIO mode for PTB22
+	//PORTB_PCR22 = PORT_PCR_MUX(1);				//Enables GPIO mode for PTB22
 	PORTE_PCR26 = PORT_PCR_MUX(1);				//Enables GPIO mode for PTE26
-	PORTB_PCR21 = PORT_PCR_MUX(1);				//Enables GPIO mode for PTB21
+	//PORTB_PCR21 = PORT_PCR_MUX(1);				//Enables GPIO mode for PTB21
 	
 	// Switch the GPIO pins to output mode
-	GPIOB_PDDR = (1 << 22) | (1 << 21);		//Set PTB22 and PTB21 to output
+	GPIOB_PDDR = (1 << 21);		//Set PTB22 and PTB21 to output
 	GPIOE_PDDR = (1 << 26);								//Set PTE26 to output
 
 	// Turn off the LEDs
-  GPIOB_PDOR = (1 << 22) | (1 << 21);		//Init PTB22 and PTB21 LEDs to off
+  GPIOB_PDOR = (1 << 21);		//Init PTB22 and PTB21 LEDs to off
 	GPIOE_PDOR = (1 << 26);								//Init PTE26 LED to off
 }
 
