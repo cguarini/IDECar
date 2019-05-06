@@ -3,7 +3,8 @@
  * Department of Computer Engineering
  * CMPE 460  Interfacing Digital Electronics
  * Fall 2018
- * Authors: Michael Baumgarten & Matthew Toro
+ * Original Authors: Michael Baumgarten & Matthew Toro
+ * Additions made by: Chris Guarini
  *
  * PIT0 determines the integration period
  * FTM2 handles the camera clock/logic
@@ -72,15 +73,13 @@ void getLine(uint16_t* data)
 
 void initPIT(void)
 {
-	/* Initalize PIT0 */
+	// Setup periodic interrupt timer (PIT)
+	
 	// Enable clock for timers
 	SIM_SCGC6 |= SIM_SCGC6_PIT_MASK;
 	
-	// Enabled clock for standard PIT timers
-	PIT_MCR &= ~PIT_MCR_MDIS_MASK;
-	
 	// Enable timers to continue in debug mode
-	PIT_MCR &= ~PIT_MCR_FRZ_MASK; // In case you need to debug
+	PIT_MCR &= ~(PIT_MCR_FRZ_MASK);// In case you need to debug
 	
 	// PIT clock frequency is the system clock
 	// Load the value that the timer will count down from
@@ -97,6 +96,7 @@ void initPIT(void)
 
 	// Enable PIT interrupt in the interrupt controller
 	NVIC_EnableIRQ(PIT0_IRQn);
+	return;
 }
 
 
@@ -158,19 +158,19 @@ void initADC0(void)
 
 void initFTM2(void)
 {
-	/* Initalize FTM2 */
 	// Enable clock
-	SIM_SCGC6 |= SIM_SCGC6_FTM2_MASK;
-
-	// Disable Write Protection
+  SIM_SCGC6 |= SIM_SCGC6_FTM2_MASK;
+	
+	
+	//turn off FTM Mode to  write protection;
 	FTM2_MODE |= FTM_MODE_WPDIS_MASK;
 	
-	// Set output to '1' on init
+		// Set output to '1' on init
 	FTM2_OUTINIT |= FTM_OUTINIT_CH0OI_MASK;
-	
-	// Initialize the CNT to 0 before writing to MOD
+
+	//reset the counter to zero
 	FTM2_CNT = 0;
-	
+
 	// Set the Counter Initial Value to 0
 	FTM2_CNTIN = 0;
 	
@@ -181,25 +181,32 @@ void initFTM2(void)
 	FTM2_C0V = (10*(SYSTEM_CLOCK/1000000)) / 2;
 	
 	// Set edge-aligned mode
+	FTM2_QDCTRL  &= ~(FTM_QDCTRL_QUADEN_MASK);
+	FTM2_COMBINE &= ~(FTM_COMBINE_DECAPEN0_MASK);
+	FTM2_COMBINE &= ~(FTM_COMBINE_COMBINE0_MASK);
+	FTM2_COMBINE &= ~(FTM_SC_CPWMS_MASK);
+	
 	FTM2_C0SC |= FTM_CnSC_MSB_MASK;
 	
 	// Enable High-true pulses
 	// ELSB = 1, ELSA = 0
+	FTM2_C0SC &= ~(FTM_CnSC_ELSA_MASK);
 	FTM2_C0SC |= FTM_CnSC_ELSB_MASK;
-	FTM2_C0SC &= ~FTM_CnSC_ELSA_MASK;
+	
 	
 	// Enable hardware trigger from FTM2
-	FTM2_EXTTRIG |= FTM_EXTTRIG_CH0TRIG_MASK;
-	
+	FTM2_EXTTRIG |= FTM_EXTTRIG_INITTRIGEN_MASK;
+
 	// Don't enable interrupts yet (disable)
-	FTM2_SC &= ~FTM_SC_TOIE_MASK;
+	FTM2_SC &= ~(FTM_SC_TOIE_MASK);
 	
 	// No prescalar, system clock
-	FTM2_SC &= ~FTM_SC_PS(0);
-	FTM2_SC |= FTM_SC_CLKS(1);
+	FTM2_SC &= FTM_SC_PS_MASK;//no prescaler
+	FTM2_SC |= FTM_SC_CLKS(1);//system clock
 	
 	// Set up interrupt
 	NVIC_EnableIRQ(FTM2_IRQn);
+
 }
 
 

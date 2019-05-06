@@ -17,42 +17,6 @@
 void initialize();
 void en_interrupts();
 
-void Blue_LED()
-{
-	GPIOB_PCOR = (1 << 21);					//Set PTB21 LED to on
-	GPIOE_PDOR = (1 << 26);					//Set PTE26 LED to off
-}
-
-void BlueGreen_LED(){
-	GPIOB_PCOR = (1 << 21);					//Set PTB21 LED to on
-	GPIOE_PCOR = (1 << 26);					//Set PTE26 LED to on
-}
-
-
-void Green_LED(){
-	GPIOE_PCOR = (1 << 26);					//Set PTE26 LED to on
-	GPIOB_PDOR = (1 << 21);					//Set PTB21 LED to off
-}
-
-void Off_LED()
-{
-	GPIOB_PSOR = (1UL << 21);
-	GPIOE_PSOR = 1UL << 26;
-}
-
-void turnOffAll(){
-		GPIOD_PCOR = (1 << 0);
-		GPIOD_PCOR = (1 << 1);
-		GPIOD_PCOR = (1 << 2);
-		GPIOD_PCOR = (1 << 3);
-}
-
-void turnOnAll(){
-	GPIOD_PSOR = (1 << 0);
-	GPIOD_PSOR = (1 << 1);
-	GPIOD_PSOR = (1 << 2);
-	GPIOD_PSOR = (1 << 3);
-}
 
 int test_main(void){
 	// Initialize UART and PWM
@@ -93,34 +57,34 @@ int test_main(void){
 }
 
 int main(void){
-	// Initialize UART and PWM
+	//Initialization Code
 	initialize();
 	initCamera();
+	//Used for speed selection through SW2
 	Button_Init();
 
-
-//Step 9
-
-	uint16_t freq = 10000; /* Frequency = 10 kHz */
+	//Used by motors
+	uint16_t freq = 10000;
 	uint16_t dir = 1;
 	
 	uint16_t line[128];
 	
+	//State machine for determining speed through SW2
 	int state = 0;
 	MAX_PWM = TOP_MAX;
 	TURN_PWM = TOP_TURN;
 
-	
-	// 0 to 100% duty cycle in forward direction
 	for (;;){
 		
-			//Button pressed/held
+	//Button pressed
 	if(!(GPIOC_PDIR & ( 1 << 6))){//checks if SW2 is pressed
+		//Increment state, reset if no further states
 		state++;
 		if(state > 2){
 			state = 0;
 		}
 		
+		//Set speeds based on the state
 		if(state == 0){
 			MAX_PWM = TOP_MAX;
 			TURN_PWM = TOP_TURN;
@@ -138,10 +102,13 @@ int main(void){
 		
 	}
 	
-		
-		getLine(line);
-		steeringFunction(line, MAX_PWM, TURN_PWM);
-		//SetDutyCycle(0, 0, freq, dir);
+	//Get a line from the camera
+	getLine(line);
+	//Steer car based on this line
+	steeringFunction(line, MAX_PWM, TURN_PWM);
+	
+	//Used for testing servo, turns off both motors
+	//SetDutyCycle(0, 0, freq, dir);
 	}
 	return 0;
 
